@@ -1,7 +1,14 @@
 <template>
-  <nav>
-    <router-link to="/accounts">Accounts</router-link> |
-    <router-link to="/transfer">Transfer</router-link>
-  </nav>
-  <router-view />
+  <div>
+    <Navbar v-if="!isLoginPage" />
+    <router-view />
+  </div>
 </template>
+
+<script setup>
+import { useRoute } from 'vue-router';
+import Navbar from './components/Navbar.vue';
+
+const route = useRoute();
+const isLoginPage = route.path === '/login';
+</script>

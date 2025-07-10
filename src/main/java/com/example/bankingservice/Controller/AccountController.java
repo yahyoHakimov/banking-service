@@ -1,5 +1,6 @@
 package com.example.bankingservice.Controller;
 
+import com.example.bankingservice.Dto.TransferRequest;
 import com.example.bankingservice.Entity.Account;
 import com.example.bankingservice.Entity.Transaction;
 import com.example.bankingservice.Repository.AccountRepository;
@@ -31,14 +32,11 @@ public class AccountController {
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<String> transfer(
-            @RequestParam Long fromId,
-            @RequestParam Long toId,
-            @RequestParam BigDecimal amount) {
-
-        service.transfer(fromId, toId, amount); // Call service
+    public ResponseEntity<String> transfer(@RequestBody TransferRequest request) {
+        service.transfer(request.getFromId(), request.getToId(), request.getAmount());
         return ResponseEntity.ok("Transfer successful");
     }
+
 
     @GetMapping("/transactions/{accountId}")
     public List<Transaction> getTransactions(@PathVariable Long accountId) {
